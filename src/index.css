@@ -157,3 +157,40 @@ section { padding-block: clamp(4rem, 10vw, 8rem); }
   padding-left: 1.25rem; padding-top: 0.9rem;
 }
 .mobile-menu__submenu a { font-family: var(--font-body); font-size: 1.15rem; color: var(--text-muted); }
+
+
+/* Hero */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: var(--nav-h);
+}
+.hero__greeting { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); color: var(--text-muted); }
+.hero__title { font-size: var(--text-hero); margin-top: 0.5rem; }
+.hero__role {
+  display: flex; align-items: center;
+  font-family: var(--font-mono); color: var(--accent);
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  margin-top: 1.5rem;
+}
+.hero__cursor {
+  display: inline-block; width: 2px; height: 1.1em;
+  background: var(--accent); margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.hero__lede { margin-top: 2rem; max-width: 46ch; font-size: clamp(1rem, 1.6vw, 1.2rem); color: var(--text-muted); }
+.hero__actions { margin-top: 2.75rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-mono); font-size: 0.85rem;
+  padding: 0.85rem 1.5rem; border: 1px solid var(--border); border-radius: 999px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.btn--solid { background: var(--accent); color: #14110a; border-color: var(--accent); }
+.btn--solid:hover { opacity: 0.88; }
