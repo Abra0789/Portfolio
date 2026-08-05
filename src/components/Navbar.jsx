@@ -6,6 +6,7 @@ import { toggleMenu, closeMenu } from '../store/uiSlice'
 
 const navStructure = [
   { to: '/', label: 'Home' },
+
   {
     label: 'About',
     children: [
@@ -13,6 +14,7 @@ const navStructure = [
       { to: '/about/experience', label: 'Experience' },
     ],
   },
+
   {
     label: 'Co-curricular',
     children: [
@@ -21,7 +23,12 @@ const navStructure = [
       { to: '/co-curricular/distinctions', label: 'Distinctions' },
     ],
   },
+
   { to: '/projects', label: 'Work' },
+
+  // New Gallery Menu
+  { to: '/gallery', label: 'Gallery' },
+
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -32,29 +39,46 @@ export default function Navbar() {
   const { pathname } = useLocation()
 
   function toggleGroup(label) {
-    setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }))
+    setOpenGroups((prev) => ({
+      ...prev,
+      [label]: !prev[label],
+    }))
   }
 
   return (
     <header className="navbar">
       <div className="container navbar__inner">
-        <NavLink to="/" className="navbar__logo" onClick={() => dispatch(closeMenu())}>
+        <NavLink
+          to="/"
+          className="navbar__logo"
+          onClick={() => dispatch(closeMenu())}
+        >
           Abrar<span>.Galib</span>
         </NavLink>
 
+        {/* Desktop Navigation */}
         <nav className="navbar__links">
           {navStructure.map((item) =>
             item.children ? (
               <div className="navbar__group" key={item.label}>
-                <span className={item.children.some((c) => c.to === pathname) ? 'active' : ''}>
+                <span
+                  className={
+                    item.children.some((child) => child.to === pathname)
+                      ? 'active'
+                      : ''
+                  }
+                >
                   {item.label}
                 </span>
+
                 <div className="navbar__dropdown">
                   {item.children.map((child) => (
                     <NavLink
                       key={child.to}
                       to={child.to}
-                      className={({ isActive }) => (isActive ? 'active' : '')}
+                      className={({ isActive }) =>
+                        isActive ? 'active' : ''
+                      }
                     >
                       {child.label}
                     </NavLink>
@@ -66,7 +90,9 @@ export default function Navbar() {
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
-                className={({ isActive }) => (isActive ? 'active' : '')}
+                className={({ isActive }) =>
+                  isActive ? 'active' : ''
+                }
               >
                 {item.label}
               </NavLink>
@@ -74,16 +100,20 @@ export default function Navbar() {
           )}
         </nav>
 
+        {/* Mobile Toggle */}
         <button
           className={`navbar__toggle ${menuOpen ? 'open' : ''}`}
           onClick={() => dispatch(toggleMenu())}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
         >
-          <span /><span /><span />
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
@@ -97,12 +127,15 @@ export default function Navbar() {
               item.children ? (
                 <div className="mobile-menu__group" key={item.label}>
                   <button
-                    className={`mobile-menu__group-toggle ${openGroups[item.label] ? 'open' : ''}`}
+                    className={`mobile-menu__group-toggle ${
+                      openGroups[item.label] ? 'open' : ''
+                    }`}
                     onClick={() => toggleGroup(item.label)}
                   >
                     {item.label}
                     <span className="chevron">⌃</span>
                   </button>
+
                   <AnimatePresence>
                     {openGroups[item.label] && (
                       <motion.div
@@ -113,7 +146,11 @@ export default function Navbar() {
                         transition={{ duration: 0.25 }}
                       >
                         {item.children.map((child) => (
-                          <NavLink key={child.to} to={child.to} onClick={() => dispatch(closeMenu())}>
+                          <NavLink
+                            key={child.to}
+                            to={child.to}
+                            onClick={() => dispatch(closeMenu())}
+                          >
                             {child.label}
                           </NavLink>
                         ))}
@@ -122,7 +159,11 @@ export default function Navbar() {
                   </AnimatePresence>
                 </div>
               ) : (
-                <NavLink key={item.to} to={item.to} onClick={() => dispatch(closeMenu())}>
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => dispatch(closeMenu())}
+                >
                   {item.label}
                 </NavLink>
               )
