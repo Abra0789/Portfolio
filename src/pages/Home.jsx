@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { Link } from 'react-router'
 import { useTypewriter } from '../hooks/useTypewriter'
+import FlowingLines from '../components/FlowingLines'
 
 const roles = ['Developer', 'Cyclist', 'Aquarist']
 const easeOut = [0.16, 1, 0.3, 1]
@@ -10,6 +11,7 @@ export default function Home() {
 
   return (
     <section className="hero container">
+      <FlowingLines />
       <motion.p
         className="hero__greeting"
         initial={{ opacity: 0, y: 16 }}
@@ -44,7 +46,7 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.4, ease: easeOut }}
       >
-        CSE graduate specializing in Web Development — building fast, animated interfaces with React.
+        CSE graduate specializing in Web Development - building fast, animated interfaces with React.
       </motion.p>
 
       <motion.div

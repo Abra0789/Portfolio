@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router'
 import { AnimatePresence, motion } from 'motion/react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useLenis } from 'lenis/react'
 import { toggleMenu, closeMenu } from '../store/uiSlice'
 
 const navStructure = [
@@ -37,6 +38,22 @@ export default function Navbar() {
   const menuOpen = useSelector((state) => state.ui.menuOpen)
   const [openGroups, setOpenGroups] = useState({})
   const { pathname } = useLocation()
+  const lenis = useLenis()
+
+  // Native scroll-lock
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : 'auto'
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [menuOpen])
+
+  // Lenis-level scroll-lock — Lenis nijer engine diye scroll intercept kore,
+  // tai body.style.overflow shudhu-i shob browser/case-e reliable na
+  useEffect(() => {
+    if (!lenis) return
+    menuOpen ? lenis.stop() : lenis.start()
+  }, [menuOpen, lenis])
 
   function toggleGroup(label) {
     setOpenGroups((prev) => ({
