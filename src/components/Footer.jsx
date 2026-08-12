@@ -6,7 +6,7 @@ const shortcuts = [
   { to: '/about/experience', label: 'Experience' },
   { to: '/co-curricular/aquarist', label: 'Aquarist' },
   { to: '/co-curricular/cycling', label: 'Cycling' },
-  { to: '/co-curricular/distinctions', label: 'Distinctions' },
+  { to: '/co-curricular/achievements', label: 'Achievements' },
   { to: '/projects', label: 'Projects' },
   { to: '/gallery', label: 'Gallery' },
   { to: '/contact', label: 'Contact' },

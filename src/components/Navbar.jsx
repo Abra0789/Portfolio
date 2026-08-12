@@ -13,6 +13,7 @@ const navStructure = [
     children: [
       { to: '/about/education', label: 'Education' },
       { to: '/about/experience', label: 'Experience' },
+      { to: '/about/educational-certifications', label: 'Educational Certifications' },
     ],
   },
 
@@ -21,16 +22,14 @@ const navStructure = [
     children: [
       { to: '/co-curricular/aquarist', label: 'Aquarist' },
       { to: '/co-curricular/cycling', label: 'Cycling' },
-      { to: '/co-curricular/distinctions', label: 'Distinctions' },
+      { to: '/co-curricular/achievements', label: 'Achievements' },
     ],
   },
 
   { to: '/projects', label: 'Work' },
-
-  // New Gallery Menu
   { to: '/gallery', label: 'Gallery' },
-
   { to: '/contact', label: 'Contact' },
+
 ]
 
 export default function Navbar() {

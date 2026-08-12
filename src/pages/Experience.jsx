@@ -5,7 +5,7 @@ const experience = [
   organization: 'eChithi',
   role: 'HR Intern — HR System Support Executive',
   type: 'Internship',
-  period: 'Jan 2024 – May 2024',
+  period: 'Jan 2025 – May 2025',
   description:
     'Specialized in internet-centric retail sales as an HR System Support Executive, contributing to organizational growth.',
 },
