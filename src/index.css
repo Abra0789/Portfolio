@@ -428,6 +428,20 @@ section { padding-block: clamp(4rem, 10vw, 8rem); }
 .skill-chip:hover { border-color: var(--accent); transform: translateY(-2px); }
 .skill-chip__glyph { color: var(--accent); font-weight: 600; }
 
+.skills-categories {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+.skills-category__title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
 
 /* ---------------------------------------------------
   Distinctions page
