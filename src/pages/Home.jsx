@@ -1,3 +1,5 @@
+//eikhane amra Home.jsx file er code ta dekhte pabo. Eikhane amra React component use kore ekta home page design korchi. Eikhane motion library use kora hoyeche animation er jonno, react-router use kora hoyeche navigation er jonno, ebong react-icons use kora hoyeche different skill icons display korar jonno.
+
 import { motion } from 'motion/react'
 import { Link } from 'react-router'
 import {
