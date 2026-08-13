@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router'
 import { ReactLenis } from 'lenis/react'
+import { Analytics } from '@vercel/analytics/react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
+      <Analytics />
     </ReactLenis>
   )
 }
