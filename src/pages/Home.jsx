@@ -1,7 +1,8 @@
-//eikhane amra Home.jsx file er code ta dekhte pabo. Eikhane amra React component use kore ekta home page design korchi. Eikhane motion library use kora hoyeche animation er jonno, react-router use kora hoyeche navigation er jonno, ebong react-icons use kora hoyeche different skill icons display korar jonno.
-
+import { useEffect, useRef } from 'react'
 import { motion } from 'motion/react'
 import { Link } from 'react-router'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   FaHtml5,
   FaCss3Alt,
@@ -15,15 +16,15 @@ import {
   FaWindows,
 } from 'react-icons/fa'
 import { SiRedux, SiDjango, SiMysql, SiFirebase } from 'react-icons/si'
-
 import { useTypewriter } from '../hooks/useTypewriter'
 import FlowingLines from '../components/FlowingLines'
 import Reveal from '../components/Reveal'
 import TextReveal from '../components/TextReveal'
 import profilePhoto from '../images/profile/profile.jpg'
 
-const roles = ['Developer', 'Cyclist', 'Aquarist']
+gsap.registerPlugin(ScrollTrigger)
 
+const roles = ['Developer', 'Cyclist', 'Aquarist']
 const easeOut = [0.16, 1, 0.3, 1]
 
 const skillCategories = [
@@ -37,7 +38,6 @@ const skillCategories = [
       { name: 'JavaScript', Icon: FaJs, color: '#F7DF1E' },
     ],
   },
-
   {
     title: 'Frontend',
     skills: [
@@ -50,7 +50,6 @@ const skillCategories = [
       { name: 'TanStack Query', Icon: null },
     ],
   },
-
   {
     title: 'Backend',
     skills: [
@@ -58,7 +57,6 @@ const skillCategories = [
       { name: 'Firebase', Icon: SiFirebase, color: '#FFCA28' },
     ],
   },
-
   {
     title: 'Database',
     skills: [
@@ -66,7 +64,6 @@ const skillCategories = [
       { name: 'Firestore', Icon: null },
     ],
   },
-
   {
     title: 'Tools & Platforms',
     skills: [
@@ -81,22 +78,46 @@ const skillCategories = [
       { name: 'Eclipse', Icon: null },
     ],
   },
-
   {
     title: 'Design',
-    skills: [
-      { name: 'Canva', Icon: null },
-    ],
+    skills: [{ name: 'Canva', Icon: null }],
   },
 ]
 
 export default function Home() {
   const typedRole = useTypewriter(roles)
+  const skillsRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const categories = gsap.utils.toArray('.skills-category')
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: skillsRef.current,
+          start: 'top 75%',
+          toggleActions: 'play none none none',
+        },
+      })
+
+      categories.forEach((category, i) => {
+        // Absolute position: protita category timeline-er i*0.25s-e shuru
+        // hoy — ager tween-er "tail"-er shathe overlap kore, ekta strict
+        // one-by-one na, ekta cascading "wave" feel dey.
+        tl.fromTo(
+          category,
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+          i * 0.25
+        )
+      })
+    }, skillsRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <>
-      {/* ==================== HERO ==================== */}
-
       <section className="hero container">
         <FlowingLines />
 
@@ -134,8 +155,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: easeOut }}
         >
-          CSE graduate specializing in Web Development — building fast,
-          animated interfaces with React.
+          CSE graduate specializing in Web Development — building fast, animated interfaces with React.
         </motion.p>
 
         <motion.div
@@ -144,103 +164,57 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55, ease: easeOut }}
         >
-          <Link to="/projects" className="btn btn--solid">
-            View work
-          </Link>
-
-          <Link to="/contact" className="btn">
-            Get in touch
-          </Link>
+          <Link to="/projects" className="btn btn--solid">View work</Link>
+          <Link to="/contact" className="btn">Get in touch</Link>
         </motion.div>
       </section>
 
-      {/* ==================== ABOUT ==================== */}
-
       <section className="container about-teaser">
         <div className="about-teaser__grid">
-          <Reveal
-            direction="left"
-            className="about-teaser__photo-wrap"
-          >
+          <Reveal direction="left" className="about-teaser__photo-wrap">
             <div className="about-teaser__photo-slot">
-              <img
-                src={profilePhoto}
-                alt="Abrar Galib"
-              />
+              <img src={profilePhoto} alt="Abrar Galib" />
             </div>
-
-            <p className="about-teaser__caption">
-              Every commit is XP. Every bug is a boss fight.
-            </p>
+            <p className="about-teaser__caption">Every commit is XP. Every bug is a boss fight.</p>
           </Reveal>
 
           <Reveal direction="right" delay={0.1}>
             <span className="eyebrow">About</span>
-
-            <h2>
-              <TextReveal>
-                CSE graduate, building things that move well.
-              </TextReveal>
-            </h2>
-
+            <h2><TextReveal>CSE graduate, building things that move well.</TextReveal></h2>
             <p className="about-teaser__text">
-              I'm a CSE graduate from the University of Asia Pacific,
-              currently deepening my MERN stack skills through a diploma at
-              Creative IT. Outside of code, I race bicycles and compete in
-              international aquascaping contests — Developer, Cyclist,
-              Aquarist isn't just a tagline, it's roughly how my week is
-              split.
+              I'm a CSE graduate from the University of Asia Pacific, currently deepening my MERN
+              stack skills through a diploma at Creative IT. Outside of code, I race bicycles and
+              compete in international aquascaping contests — Developer, Cyclist, Aquarist isn't
+              just a tagline, it's roughly how my week is split.
             </p>
-
-            <Link to="/about/education" className="btn">
-              More about me
-            </Link>
+            <Link to="/about/education" className="btn">More about me</Link>
           </Reveal>
         </div>
       </section>
 
-      {/* ==================== SKILLS ==================== */}
-
-      <section className="container skills-section">
+      <section className="container skills-section" ref={skillsRef}>
         <Reveal>
           <span className="eyebrow">Skills</span>
-
           <h2>Tools I build with</h2>
         </Reveal>
 
         <div className="skills-categories">
-          {skillCategories.map((category, categoryIndex) => (
-            <Reveal
-              key={category.title}
-              delay={Math.min(categoryIndex * 0.1, 0.3)}
-              className="skills-category"
-            >
-              <h3 className="skills-category__title">
-                {category.title}
-              </h3>
-
+          {skillCategories.map((category) => (
+            <div key={category.title} className="skills-category">
+              <h3 className="skills-category__title">{category.title}</h3>
               <div className="skills-grid">
                 {category.skills.map(({ name, Icon, color }) => (
-                  <div
-                    className="skill-chip"
-                    key={name}
-                  >
+                  <div className="skill-chip" key={name}>
                     {Icon ? (
-                      <Icon
-                        style={{ color }}
-                        size={20}
-                      />
+                      <Icon style={{ color }} size={20} />
                     ) : (
-                      <span className="skill-chip__glyph">
-                        {'{ }'}
-                      </span>
+                      <span className="skill-chip__glyph">{'{ }'}</span>
                     )}
-
                     <span>{name}</span>
                   </div>
                 ))}
               </div>
-            </Reveal>
+            </div>
           ))}
         </div>
       </section>
