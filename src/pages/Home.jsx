@@ -90,25 +90,152 @@ export default function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const aboutSection = document.querySelector('.about-teaser')
+
+      if (!aboutSection) return
+
+      const photo = aboutSection.querySelector('.about-teaser__photo-wrap')
+      const eyebrow = aboutSection.querySelector('.eyebrow')
+      const heading = aboutSection.querySelector('h2')
+      const text = aboutSection.querySelector('.about-teaser__text')
+      const button = aboutSection.querySelector('.btn')
+
+      // Initial state
+      gsap.set(photo, {
+        opacity: 0,
+        x: -80,
+      })
+
+      gsap.set([eyebrow, heading, text, button], {
+        opacity: 0,
+        x: 60,
+      })
+
+      // Timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: aboutSection,
+          start: 'top 75%',
+          end: 'bottom 35%',
+          scrub: 1,
+        },
+      })
+
+      // 1. Profile image
+      tl.to(photo, {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+      })
+
+      // 2. About eyebrow
+      tl.to(
+        eyebrow,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.5,
+          ease: 'power3.out',
+        },
+        '-=0.45'
+      )
+
+      // 3. Heading
+      tl.to(
+        heading,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+        },
+        '-=0.3'
+      )
+
+      // 4. Paragraph
+      tl.to(
+        text,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+        },
+        '-=0.3'
+      )
+
+      // 5. Button
+      tl.to(
+        button,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          ease: 'power3.out',
+        },
+        '-=0.25'
+      )
+    })
+
+    return () => ctx.revert()
+  }, [])
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
       const categories = gsap.utils.toArray('.skills-category')
 
+      // Initial state
+      categories.forEach((category) => {
+        const items = category.querySelectorAll('.skill-chip')
+
+        gsap.set(category, {
+          opacity: 0,
+          y: 30,
+        })
+
+        gsap.set(items, {
+          opacity: 0,
+          x: -50,
+        })
+      })
+
+      // Master timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: skillsRef.current,
           start: 'top 75%',
-          toggleActions: 'play none none none',
+          end: 'bottom 35%',
+          scrub: 1,
         },
       })
 
       categories.forEach((category, i) => {
-        // Absolute position: protita category timeline-er i*0.25s-e shuru
-        // hoy — ager tween-er "tail"-er shathe overlap kore, ekta strict
-        // one-by-one na, ekta cascading "wave" feel dey.
-        tl.fromTo(
+        const items = category.querySelectorAll('.skill-chip')
+
+        // Category appears first
+        tl.to(
           category,
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-          i * 0.25
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+          },
+          i * 0.35
+        )
+
+        // Skills come from left to right
+        tl.to(
+          items,
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out',
+          },
+          i * 0.35 + 0.15
         )
       })
     }, skillsRef)
@@ -171,24 +298,33 @@ export default function Home() {
 
       <section className="container about-teaser">
         <div className="about-teaser__grid">
-          <Reveal direction="left" className="about-teaser__photo-wrap">
+          <div className="about-teaser__photo-wrap">
             <div className="about-teaser__photo-slot">
               <img src={profilePhoto} alt="Abrar Galib" />
             </div>
             <p className="about-teaser__caption">Every commit is XP. Every bug is a boss fight.</p>
-          </Reveal>
+          </div>
 
-          <Reveal direction="right" delay={0.1}>
+          <div className="about-teaser__content">
             <span className="eyebrow">About</span>
-            <h2><TextReveal>CSE graduate, building things that move well.</TextReveal></h2>
+
+            <h2>
+              <TextReveal>
+                CSE graduate, building things that move well.
+              </TextReveal>
+            </h2>
+
             <p className="about-teaser__text">
               I'm a CSE graduate from the University of Asia Pacific, currently deepening my MERN
               stack skills through a diploma at Creative IT. Outside of code, I race bicycles and
               compete in international aquascaping contests — Developer, Cyclist, Aquarist isn't
               just a tagline, it's roughly how my week is split.
             </p>
-            <Link to="/about/education" className="btn">More about me</Link>
-          </Reveal>
+
+            <Link to="/about/education" className="btn">
+              More about me
+            </Link>
+          </div>
         </div>
       </section>
 
