@@ -33,6 +33,21 @@ export default function ProjectDetail() {
         ))}
       </Reveal>
 
+      {(project.demoLink || project.repoLink) && (
+  <Reveal delay={0.15} className="detail-links">
+    {project.demoLink && (
+      <a href={project.demoLink} target="_blank" rel="noreferrer" className="btn btn--solid">
+        Live Demo
+      </a>
+    )}
+    {project.repoLink && (
+      <a href={project.repoLink} target="_blank" rel="noreferrer" className="btn">
+        View Code
+      </a>
+    )}
+  </Reveal>
+)}
+
       <div className="detail-nav">
         <Link to={`/projects/${prev.slug}`} className="link-underline">← {prev.title}</Link>
         <Link to="/projects" className="link-underline">All projects</Link>

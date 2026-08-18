@@ -522,3 +522,11 @@ section { padding-block: clamp(4rem, 10vw, 8rem); }
   background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 0.35s ease;
 }
 .link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
+
+
+.detail-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
