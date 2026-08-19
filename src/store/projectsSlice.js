@@ -29,13 +29,18 @@ export const initialProjects = [
     repoLink: "https://github.com/Abra0789/Nano_GPT.git",
   },
   {
-    slug: "thesis",
-    title: "Thesis",
-    role: "Undergraduate Thesis",
+    slug: "automated-parcel-sorting-robot",
+    title: "Automated Parcel-Sorting Robot",
+    role: "Bachelor's Final Year Project",
     year: "2025",
-    tags: ["AI"],
-    summary: "Undergraduate thesis project — full description coming soon.",
-    description: ["Details of this thesis project will be added soon."],
+    tags: ["Robotics"],
+    summary:
+      "A wireless Bluetooth-controlled parcel-sorting robot built for automated logistics.",
+    description: [
+      "Built a wireless Bluetooth-controlled parcel-sorting robot using an ESP32-WROOM-32 as the core controller.",
+      "Used NEMA-17 stepper motors for linear motion and parcel dropping, and designed a turntable mechanism for 90° path switching on linear tracks.",
+      "Implemented a timing belt system to drive four wheels in sync, keeping motion coordinated across the whole robot.",
+    ],
     repoLink: "https://github.com/Abra0789/Thesis.git",
   },
   {
